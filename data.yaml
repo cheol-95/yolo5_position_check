@@ -1,0 +1,5 @@
+train: ./train/images
+val: ./val/images
+
+nc: 2
+names: ['정위치', '비정위치']

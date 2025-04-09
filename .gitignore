@@ -4,3 +4,7 @@ cropped*
 resnet/data/*
 IMG*
 yolo5-env/*
+sample/*
+test/*
+train/*
+val/*
