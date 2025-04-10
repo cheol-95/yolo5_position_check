@@ -8,3 +8,8 @@ sample/*
 test/*
 train/*
 val/*
+output*
+output_all_frames/*
+output_labeled_frames/*
+models/*
+*.mp4

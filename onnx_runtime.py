@@ -108,13 +108,16 @@ for image_path in sorted(image_paths):
     # NMS
     # ----------------------------
     indices = cv2.dnn.NMSBoxes(boxes, scores, CONF_THRESHOLD, NMS_THRESHOLD)
+    if len(indices) == 0:
+        print(f"[WARN] No boxes detected for {image_path}")
+        continue
 
     img_height, img_width = img_raw.shape[:2]
     center_x = img_width // 2
 
-    # 세로선 좌우 기준: 중앙 -225px, 중앙 +225px
-    left_line_x = center_x - 225
-    right_line_x = center_x + 225
+    # 세로선 좌우 기준: 중앙 -700px, 중앙 +700px
+    left_line_x = center_x - 700
+    right_line_x = center_x + 700
 
     # 세로선 그리기 (빨간색)
     cv2.line(img_raw, (left_line_x, 0), (left_line_x, img_height), (0, 0, 255), 2)

@@ -3,8 +3,8 @@ import cv2
 from pathlib import Path
 
 # 설정
-VIDEO_PATH = "IMG_6119.MOV"
-OUTPUT_BASE = Path("2_position_sample_train_labeled_frames")
+VIDEO_PATH = "output.mp4"
+OUTPUT_BASE = Path("output_all_frames")
 OUTPUT_BASE.mkdir(parents=True, exist_ok=True)
 
 INTERVAL_SEC = 0.2  # 0.5초 간격
@@ -38,7 +38,8 @@ while cap.isOpened():
         continue
 
     # 프레임을 시계 방향으로 90도 회전
-    rotated_frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+    # rotated_frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+    rotated_frame = frame
 
     preview = rotated_frame.copy()
     cv2.putText(preview, f"Frame {frame_id}", (10, 30),
@@ -46,19 +47,25 @@ while cap.isOpened():
     cv2.imshow("Label Frame", preview)
 
     key = cv2.waitKey(0) & 0xFF
-    if key == ord('q'):
-        print("🚪 종료")
-        break
-    elif key in map(ord, categories.keys()):
-        label = categories[chr(key)]
-        out_path = OUTPUT_BASE / label / f"{label}_{frame_id:04d}.jpg"
-        cv2.imwrite(str(out_path), rotated_frame)
-        print(f"✅ 저장됨: {out_path}")
-        frame_id += 1
-    elif key == ord('s'):
-        print("⏭️ 건너뜀")
-        frame_id += 1
-        continue
+    # if key == ord('q'):
+    #     print("🚪 종료")
+    #     break
+    # elif key in map(ord, categories.keys()):
+    #     label = categories[chr(key)]
+    #     out_path = OUTPUT_BASE / label / f"{label}_{frame_id:04d}.jpg"
+    #     cv2.imwrite(str(out_path), rotated_frame)
+    #     print(f"✅ 저장됨: {out_path}")
+    #     frame_id += 1
+    # elif key == ord('s'):
+    #     print("⏭️ 건너뜀")
+    #     frame_id += 1
+    #     continue
+    label = "o"
+    out_path = OUTPUT_BASE / label / f"{label}_{frame_id:04d}.jpg"
+    cv2.imwrite(str(out_path), rotated_frame)
+    print(f"✅ 저장됨: {out_path}")
+
+    frame_id += 1
 
 cap.release()
 cv2.destroyAllWindows()
